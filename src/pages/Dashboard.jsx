@@ -16,7 +16,8 @@ const Dashboard = () => {
             try {
                 const token = getToken();
                 // Mock data for initial view if backend is empty or failing
-                const { data } = await axios.get('http://192.168.10.106:5000/api/dashboard', {
+                const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+                const { data } = await axios.get(`${API_URL}/api/dashboard`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setStats(data);

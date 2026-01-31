@@ -18,9 +18,10 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        console.log("Tentando login em: http://192.168.10.106:5000/api/auth/login");
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        console.log(`Tentando login em: ${API_URL}/api/auth/login`);
         try {
-            const { data } = await axios.post('http://192.168.10.106:5000/api/auth/login', { email, password });
+            const { data } = await axios.post(`${API_URL}/api/auth/login`, { email, password });
             setUser(data);
             localStorage.setItem('userInfo', JSON.stringify(data));
 
@@ -38,8 +39,9 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (name, email, password) => {
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
         try {
-            const { data } = await axios.post('http://192.168.10.106:5000/api/auth/register', { name, email, password });
+            const { data } = await axios.post(`${API_URL}/api/auth/register`, { name, email, password });
             setUser(data);
             localStorage.setItem('userInfo', JSON.stringify(data));
             return { success: true };
